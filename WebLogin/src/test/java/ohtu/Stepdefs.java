@@ -52,6 +52,59 @@ public class Stepdefs {
         pageHasContent("Give your credentials to login");
     }
 
+    @Given("^command new user is selected$")
+    public void command_new_user_is_selected() throws Throwable {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+    }
+
+    @When("^a valid username \"([^\"]*)\" and password \"([^\"]*)\" and matching password confirmation are entered$")
+    public void a_valid_username_and_password_and_matching_password_confirmation_are_entered(String username, String password) throws Throwable {
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+
+        element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("signup"));
+        element.submit();
+    }
+
+    @Then("^a new user is created$")
+    public void a_new_user_is_created() throws Throwable {
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+
+    @Then("^user is not created and error \"([^\"]*)\" is reported$")
+    public void user_is_not_created_and_error_is_reported(String arg1) throws Throwable {
+        pageHasContent(arg1);
+    }
+
+    @Given("^user \"([^\"]*)\" with password \"([^\"]*)\" is created$")
+    public void user_with_password_is_created(String arg1, String arg2) throws Throwable {
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+
+    @When("^a valid username \"([^\"]*)\" and password \"([^\"]*)\" and password confirmation \"([^\"]*)\" are entered$")
+    public void a_valid_username_and_password_and_password_confirmation_are_entered(String username, String password, String passwordConfirmation) throws Throwable {
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+
+        element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(passwordConfirmation);
+        element = driver.findElement(By.name("signup"));
+        element.submit();
+    }
+
+
     @After
     public void tearDown(){
         driver.quit();

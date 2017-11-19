@@ -30,8 +30,24 @@ public class AuthenticationService {
             status.addError("username is already taken");
         }
 
-        if (username.length()<3 ) {
+        if (username.length() < 3) {
             status.addError("username should have at least 3 characters");
+        }
+
+        if (!username.matches("[a-zA-Z]+")) {
+            status.addError("username can only be made out of letters");
+        }
+
+        if (password.length() < 8) {
+            status.addError("password too short, min 8 characters");
+        }
+
+        if (password.matches("[a-zA-Z]+")){
+            status.addError("password has to have a number or special character");
+        }
+
+        if (!password.equals(passwordConfirmation)) {
+            status.addError("passwords do not match");
         }
 
         if (status.isOk()) {
